@@ -12,7 +12,9 @@ builder.Services.AddPersistenceServices(builder.Configuration);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddHttpContextAccessor();
+//builder.Services.AddDistributedMemoryCache();
+builder.Services.AddStackExchangeRedisCache(opt => opt.Configuration = "localhost:6379");
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

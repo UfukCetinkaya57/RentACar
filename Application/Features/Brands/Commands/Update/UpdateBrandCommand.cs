@@ -1,6 +1,6 @@
 ﻿using Application.Services.Repositories;
 using AutoMapper;
-//using Core.Application.Pipelines.Caching;
+using Core.Application.Pipelines.Caching;
 using Domain.Entities;
 using MediatR;
 using System;
@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Brands.Commands.Update;
 
-public class UpdateBrandCommand : IRequest<UpdatedBrandResponse>/*, ICacheRemoverRequest*/
+public class UpdateBrandCommand : IRequest<UpdatedBrandResponse>, ICacheRemoverRequest
 {
     public Guid Id { get; set; }
     public string Name { get; set; }

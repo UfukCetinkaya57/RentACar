@@ -7,6 +7,8 @@
 //using Domain.Entities;
 using Application.Services.Repositories;
 using AutoMapper;
+using Core.Application.Pipelines.Caching;
+using Core.Application.Pipelines.Logging;
 using Core.Application.Pipelines.Transaction;
 using Domain.Entities;
 using MediatR;
@@ -18,7 +20,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Brands.Commands.Create;
 
-public class CreateBrandCommand : IRequest<CreatedBrandResponse>, ITransactionalRequest/*, ICacheRemoverRequest, ILoggableRequest*/
+public class CreateBrandCommand : IRequest<CreatedBrandResponse>, ITransactionalRequest, ICacheRemoverRequest, ILoggableRequest
 {
     public string Name { get; set; }
 
@@ -28,7 +30,7 @@ public class CreateBrandCommand : IRequest<CreatedBrandResponse>, ITransactional
 
     public string? CacheGroupKey => "GetBrands";
 
-    public class CreateBrandCommandHandler : IRequestHandler<CreateBrandCommand, CreatedBrandResponse>
+    public class CreateBrandCommandHandler : IRequestHandler<CreateBrandCommand, CreatedBrandResponse>, ILoggableRequest
     {
         private readonly IBrandRepository _brandRepository;
         private readonly IMapper _mapper;
